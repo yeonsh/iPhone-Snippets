@@ -65,6 +65,8 @@
  */
 - (void)setupUserInterface
 {
+    NSLog(@"setupUserInterface");
+    
 	// Background image
 	UIImageView* bg = [[UIImageView alloc] initWithFrame:RECT_FOR_ON];
 	bg.image = [UIImage imageNamed:@"switch_on.png"];
@@ -100,6 +102,26 @@
  */
 - (void)setOn:(BOOL)on animated:(BOOL)animated
 {
+    NSLog(@"setOn");
+    
+#if 1
+    _on = on;
+    if (animated) {
+        [self animateSwitch:on];
+    }
+    else {
+        if (_on)
+        {
+            self.switchImage.frame = RECT_FOR_ON;
+            self.backgroundImage.image = [UIImage imageNamed:@"switch_on.png"];
+        }
+        else
+        {
+            self.switchImage.frame = RECT_FOR_OFF;
+            self.backgroundImage.image = [UIImage imageNamed:@"switch_off.png"];
+        }
+    }
+#else
 	if (_on)
 	{
 		self.switchImage.frame = RECT_FOR_ON;
@@ -110,6 +132,7 @@
 		self.switchImage.frame = RECT_FOR_OFF;
 		self.backgroundImage.image = [UIImage imageNamed:@"switch_off.png"];
 	}
+#endif
 }
 
 /**

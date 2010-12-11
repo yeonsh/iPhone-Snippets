@@ -6,10 +6,13 @@
 //
 
 #import "CatalogViewController.h"
-#import "CustomUISwitch.h"
 
 @implementation CatalogViewController
 
+- (void)valueChangedInView:(CustomUISwitch*)view;
+{
+    NSLog(@"valueChangedInView. %d", [view isOn]);
+}
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad 
@@ -19,11 +22,26 @@
 	self.view.backgroundColor = [UIColor greenColor];
 	
 	// Size doesn't matter
-	CustomUISwitch* customSwitch = [[CustomUISwitch alloc] initWithFrame:CGRectMake(100.0, 100.0, 0.0, 0.0)];
-	[self.view addSubview:customSwitch];
-	[customSwitch release];
+	_customSwitch = [[CustomUISwitch alloc] initWithFrame:CGRectMake(100.0, 100.0, 0.0, 0.0)];
+    _customSwitch.delegate = self;
+	[self.view addSubview:_customSwitch];
+	[_customSwitch release];
+
 }
 
+-(void) viewWillAppear:(BOOL)animated
+{
+    [_customSwitch setOn:NO animated:NO];
+
+    [super viewWillAppear:animated];
+}
+
+-(void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    
+}
 
 - (void)didReceiveMemoryWarning 
 {
@@ -42,6 +60,7 @@
 
 - (void)dealloc 
 {
+    [_customSwitch release];
     [super dealloc];
 }
 

@@ -6,11 +6,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CustomUISwitch.h"
 
 
 @interface CatalogViewController : UIViewController 
 {
-
+    CustomUISwitch *_customSwitch;
 }
 
 @end
